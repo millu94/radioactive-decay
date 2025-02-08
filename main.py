@@ -44,12 +44,12 @@ class Nuclei:
         
     def simulate_radioactive_decay(self):
 
-        max_iteration = 5000000
+        max_iteration = 2 * self.actual_half_life
         half_total_nuclei = self.total_nuclei / 2 
         print(half_total_nuclei)
 
         #while self.decayed_nuclei < half_total_nuclei:
-        for iteration in range(2000):
+        for iteration in range(max_iteration):
             if self.decayed_nuclei >= half_total_nuclei:
                 break
             for i, row in enumerate(self.grid):
