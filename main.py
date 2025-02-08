@@ -5,6 +5,7 @@ class Nuclei:
 
     def __init__(self, λ, n, Δt):
         self.total_nuclei = n**2
+        self.decayed_nuclei = 0
         self.decay_constant = λ
         self.actual_half_life = math.log(2) / self.decay_constant
         self.probability_of_decay = Δt * self.decay_constant
@@ -33,77 +34,52 @@ class Nuclei:
                     if it equals zero
                         continue
                     else
-                        generate random number and if it is less than probability of 
+                        generate random number and if it is less than 
+                        probability of 
                         decay then change element to equal zero
 
         else
             print recorded time step ie the simulated number for half life
     """
-
-
-    """
+        
     def simulate_radioactive_decay(self):
 
-        decayed_nuclei = 0
-        recorded_time_step = 0
+        max_iteration = 5000000
+        half_total_nuclei = self.total_nuclei / 2 
+        print(half_total_nuclei)
 
-        # continue until half the nuclei have decayed
-        while decayed_nuclei < (self.total_nuclei / 2):
-            # iterate for each time step
-            for iteration in range(2000):
-                recorded_time_step += self.time_step
-                print(recorded_time_step)
+        #while self.decayed_nuclei < half_total_nuclei:
+        for iteration in range(2000):
+            if self.decayed_nuclei >= half_total_nuclei:
+                break
+            for i, row in enumerate(self.grid):
+                for j, value in enumerate(row):
+                    #print(iteration, i, j)
+                    random_number = np.random.rand()
+                    if value == 1 and random_number < self.probability_of_decay:
+                        self.grid[i][j] = 0
+                        self.decayed_nuclei += 1.0
+                        #if self.decayed_nuclei >= half_total_nuclei:
+                        #    break
+                    else:
+                        continue
 
-                for index, value in enumerate(self.grid):
-                    if value == 1:
-                        random_value = np.random.rand()
-                        if random_value <= self.probability_of_decay:
-                            print(f"mins : {recorded_time_step}")
-                            self.grid[index] = 0
-                            decayed_nuclei += 1
-                            print(decayed_nuclei)
-
-        else:
-            print(decayed_nuclei)
-            print(recorded_time_step)
-            print(self)
-    """
-    def simulate_radioactive_decay(self):
-        decayed_nuclei = 0
-        recorded_time_step = 0
-    # continue until half the nuclei have decayed
-        while decayed_nuclei < (self.total_nuclei / 2):
-            # iterate for each time step
-            recorded_time_step += self.time_step
-            #print(recorded_time_step)
-            for index, value in enumerate(self.grid):
-                if value == 1:
-                    random_value = np.random.rand()
-                    if random_value <= self.probability_of_decay:
-                        print(f"mins : {recorded_time_step}")
-                        self.grid[index] = 0
-                        decayed_nuclei += 1
-                        print(decayed_nuclei)
-        else:
-            print(decayed_nuclei)
-            print(recorded_time_step)
-            print(self)
-                   
-
-
-
+        print(self.decayed_nuclei)
     
 def main():
     
     print("Input the following: decay constant = λ [min^-1], square root of "
           "total array size N = √TotalSize, timestep = Δt [min]")
-    λ = float(input("λ: "))
-    n = int(input("N: "))
-    Δt = float(input("Δt: "))
+    # λ = float(input("λ: "))
+    # n = int(input("N: "))
+    # Δt = float(input("Δt: "))
 
-    """
-    λ: 0.02775, N: 50, ∆t: 0.01
-    """
+
+    
+    λ = 0.02775
+    n = 50
+    Δt = 0.01
+    
 
     # probability_of_decay = Δt * decay_constant
     # half_life = math.log(2) / decay_constant

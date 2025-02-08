@@ -10,6 +10,7 @@ for _ in range(round(10 / 0.5)):
     print("Hello")
 """
 
+"""
 grid = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 probability_of_decay = 0.5
 
@@ -20,6 +21,21 @@ for index, value in enumerate(grid):
         grid[index] = 0
 
 print(grid)
+
+"""
+
+probability_of_decay = 0.0002775
+values = []
+
+for x in range(5000000):
+    random_value = np.random.rand()
+    if random_value < probability_of_decay:
+        values.append(x)
+
+# print(values)
+print(len(values))
+
+
 
 
 
