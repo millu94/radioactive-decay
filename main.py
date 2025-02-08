@@ -7,10 +7,11 @@ class Nuclei:
         self.total_nuclei = n**2
         self.decayed_nuclei = 0
         self.decay_constant = λ
-        self.actual_half_life = math.log(2) / self.decay_constant
+        self.actual_half_life = round(math.log(2) / self.decay_constant, 2)
         self.probability_of_decay = Δt * self.decay_constant
         self.time_step = Δt
         self.grid = []
+        self.simulated_half_time = 0
         for i in range(n):
             one_row = [1]*n
             self.grid.append(one_row)
@@ -43,28 +44,37 @@ class Nuclei:
     """
         
     def simulate_radioactive_decay(self):
+        
+        # plenty of room for anomalies
+        max_iteration = round((2 * self.actual_half_life) / self.time_step)
 
-        max_iteration = 2 * self.actual_half_life
-        half_total_nuclei = self.total_nuclei / 2 
-        print(half_total_nuclei)
+        # half_total_nuclei = self.total_nuclei / 2 
+        # print(half_total_nuclei)
+        
+        print("Initial Nuclei: ", self.total_nuclei)
+        print("Actual Half Life: ", self.actual_half_life, "mins")
 
-        #while self.decayed_nuclei < half_total_nuclei:
+
         for iteration in range(max_iteration):
-            if self.decayed_nuclei >= half_total_nuclei:
+            
+            # loop until decayed nuclei equal half of original number, then exit
+            if self.decayed_nuclei >= self.total_nuclei / 2:
+                self.simulated_half_life = round(iteration * self.time_step, 2)
                 break
+
             for i, row in enumerate(self.grid):
                 for j, value in enumerate(row):
-                    #print(iteration, i, j)
+
                     random_number = np.random.rand()
+
                     if value == 1 and random_number < self.probability_of_decay:
                         self.grid[i][j] = 0
                         self.decayed_nuclei += 1.0
-                        #if self.decayed_nuclei >= half_total_nuclei:
-                        #    break
                     else:
                         continue
 
-        print(self.decayed_nuclei)
+        print("Number of Remaining Nuclei: ", self.total_nuclei - self.decayed_nuclei)
+        print("Simulated Half Life: ", self.simulated_half_life, "mins")
     
 def main():
     
