@@ -47,9 +47,6 @@ class Nuclei:
         
         # plenty of room for anomalies
         max_iteration = round((2 * self.actual_half_life) / self.time_step)
-
-        # half_total_nuclei = self.total_nuclei / 2 
-        # print(half_total_nuclei)
         
         print("Initial Nuclei: ", self.total_nuclei)
         print("Actual Half Life: ", self.actual_half_life, "mins")
@@ -80,15 +77,15 @@ def main():
     
     print("Input the following: decay constant = λ [min^-1], square root of "
           "total array size N = √TotalSize, timestep = Δt [min]")
-    # λ = float(input("λ: "))
-    # n = int(input("N: "))
-    # Δt = float(input("Δt: "))
+    λ = float(input("λ: "))
+    n = int(input("N: "))
+    Δt = float(input("Δt: "))
 
 
     
-    λ = 0.02775
-    n = 50
-    Δt = 0.01
+    # λ = 0.02775
+    # n = 50
+    # Δt = 0.01
     
 
     # probability_of_decay = Δt * decay_constant
